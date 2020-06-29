@@ -27,7 +27,8 @@ def rename():
                     else:
                         break   
                 while True: #防止用户不输入阿拉伯数字，这里要输入位数       
-                    digit=input("你希望生成几位数的文件名(默认为3位数)：") 
+                    digit=input("你希望生成几位数的文件名(默认为3位数)：")
+                     
                     if len(digit)<=0:
                         digit=3
                     try:
@@ -35,8 +36,8 @@ def rename():
                         break
                     except ValueError:
                         print("请输入正确的阿拉伯数字。")      
-
-                print("正在生成以"+name+str(f"%0{digit}d" % startnum)+filetype+"格式的文件名")    
+                startnum2=str(f"%0{digit}d" % int(startnum))
+                print(f'正在生成以{name}{startnum2}{filetype}格式的文件名')    
 
                 i=0
                 for files in filelist:
