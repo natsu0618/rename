@@ -10,7 +10,7 @@ def rename():
                 break  
             filelist=os.listdir(path)   #避免奇葩用户乱输入，先尝试打开路径
             if path!="0":   #改名代码
-                name=input("请输入名字(如特摄;芜湖;旅游等,可跳过)：")   #这里可以随便输入所以不管
+                name=input("请输入名字(如特摄;旅游等,可跳过)：")
                 while True: #这里防止用户不输入阿拉伯数字去输入一些奇奇怪怪的东西 
                     startnum=input("从什么数字开始命名(请输入阿拉伯数字,跳过默认为1)：")
                     if len(startnum)<=0:
@@ -20,24 +20,17 @@ def rename():
                         break
                     except ValueError:
                         print("请输入正确的阿拉伯数字。")   
-                while True: #防止用户不输入后缀名  
-                    filetype=input("请输入后缀名(如.jpg;.png;.mp4等)：")
-                    if len(filetype)<=0:
-                        print("请输入后缀名！！！") 
-                    else:
-                        break   
-                while True: #防止用户不输入阿拉伯数字，这里要输入位数       
-                    digit=input("你希望生成几位数的文件名(默认为3位数)：")
-                     
+
+                while True: #这里要输入文件名位数       
+                    digit=input("你希望生成几位数的文件名(默认为4位数)：") 
                     if len(digit)<=0:
-                        digit=3
+                        digit=4
                     try:
                         int(digit)
                         break
                     except ValueError:
                         print("请输入正确的阿拉伯数字。")      
-                startnum2=str(f"%0{digit}d" % int(startnum))
-                print(f'正在生成以{name}{startnum2}{filetype}格式的文件名')    
+                print("正在生成以"+name+str(f"%0{digit}d" % int(startnum))+filetype+"格式的文件名")    
 
                 i=0
                 for files in filelist:
@@ -45,6 +38,7 @@ def rename():
                     if os.path.isdir(Olddir):
                         continue
                     numbers=i+int(startnum)
+                    filetype=os.path.splitext(files)[1]
                     Newdir=os.path.join(path,name+str(f"%0{digit}d" % numbers)+filetype)
                     os.rename(Olddir,Newdir)
                     i+=1
